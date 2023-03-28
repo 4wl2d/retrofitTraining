@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="ind.wl2d.retrofit.main.LoginFragment"
-        android:label="@string/first_fragment_label"
+        android:label="loginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_productsFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/productsFragment"
         android:name="ind.wl2d.retrofit.main.ProductsFragment"
-        android:label="@string/second_fragment_label"
+        android:label="productsFragment"
         tools:layout="@layout/fragment_products">
     </fragment>
 </navigation>
