@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ind.wl2d.retrofit.R
 import ind.wl2d.retrofit.databinding.ListItemBinding
-import ind.wl2d.retrofit.retrofit1.Product
+import ind.wl2d.retrofit.retrofitLib.Product
 
 class ProductAdapter : ListAdapter<Product, ProductAdapter.Holder>(Comparator()) {
 

@@ -1,4 +1,4 @@
-package ind.wl2d.retrofit.retrofit1
+package ind.wl2d.retrofit.retrofitLib
 
 data class Products(
     val products: List<Product>

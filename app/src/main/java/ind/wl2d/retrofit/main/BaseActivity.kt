@@ -1,4 +1,4 @@
-package ind.wl2d.retrofit
+package ind.wl2d.retrofit.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

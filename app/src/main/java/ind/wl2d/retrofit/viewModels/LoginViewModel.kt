@@ -1,4 +1,4 @@
-package ind.wl2d.retrofit
+package ind.wl2d.retrofit.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

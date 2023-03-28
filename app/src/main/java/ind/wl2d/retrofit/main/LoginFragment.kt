@@ -1,4 +1,4 @@
-package ind.wl2d.retrofit
+package ind.wl2d.retrofit.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
+import ind.wl2d.retrofit.R
 import ind.wl2d.retrofit.databinding.FragmentLoginBinding
-import ind.wl2d.retrofit.retrofit1.AuthRequest
-import ind.wl2d.retrofit.retrofit1.MainAPI
+import ind.wl2d.retrofit.retrofitLib.AuthRequest
+import ind.wl2d.retrofit.retrofitLib.MainAPI
+import ind.wl2d.retrofit.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,16 +63,16 @@ class LoginFragment : Fragment() {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val client = OkHttpClient.Builder() // клиент для logcat
+        val client = OkHttpClient.Builder() // logcat client(for debugging)
             .addInterceptor(interceptor)
             .build()
 
-        val retrofit = Retrofit.Builder() // создание ретрофита
+        val retrofit = Retrofit.Builder() // retrofit creating
             .baseUrl("https://dummyjson.com")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        mainAPI = retrofit.create(MainAPI::class.java) // инстанция ретрофита
+        mainAPI = retrofit.create(MainAPI::class.java) // retrofit instance
     }
 
     private fun auth(authRequest: AuthRequest) {

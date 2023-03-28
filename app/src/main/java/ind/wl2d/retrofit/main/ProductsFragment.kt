@@ -1,4 +1,4 @@
-package ind.wl2d.retrofit
+package ind.wl2d.retrofit.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ind.wl2d.retrofit.adapter.ProductAdapter
 import ind.wl2d.retrofit.databinding.FragmentProductsBinding
-import ind.wl2d.retrofit.retrofit1.MainAPI
+import ind.wl2d.retrofit.retrofitLib.MainAPI
+import ind.wl2d.retrofit.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,8 +31,7 @@ class ProductsFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         binding = FragmentProductsBinding.inflate(inflater, container, false)
@@ -46,14 +46,14 @@ class ProductsFragment : Fragment() {
         viewModel.token.observe(viewLifecycleOwner) { token ->
             CoroutineScope(Dispatchers.IO).launch {
                 binding.sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean { // когда на клавиатуре есть кнопка поиска
+                    override fun onQueryTextSubmit(query: String?): Boolean { // if we have search button on keyboard
                         return true
                     }
 
                     override fun onQueryTextChange(text: String?): Boolean {
                         CoroutineScope(Dispatchers.IO).launch {
 
-                            val list = text?.let { mainAPI.getProductsByNameAuth(token ?: "", it) }
+                            val list = text?.let { mainAPI.getProductsByName(token ?: "", it) }
 
                             requireActivity().runOnUiThread {
                                 binding.apply {
@@ -72,20 +72,17 @@ class ProductsFragment : Fragment() {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val client = OkHttpClient.Builder() // клиент для logcat
-            .addInterceptor(interceptor)
-            .build()
+        val client = OkHttpClient.Builder() // logcat client(for debugging)
+            .addInterceptor(interceptor).build()
 
-        val retrofit = Retrofit.Builder() // создание ретрофита
-            .baseUrl("https://dummyjson.com")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        mainAPI = retrofit.create(MainAPI::class.java) // инстанция ретрофита
+        val retrofit = Retrofit.Builder() // retrofit created
+            .baseUrl("https://dummyjson.com").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        mainAPI = retrofit.create(MainAPI::class.java) // retrofit instance
     }
 
     private fun initRcView() = with(binding) {
-        adapter = ProductAdapter()
+        adapter = ProductAdapter() // adapter creating
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
     }
