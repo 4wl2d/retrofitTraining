@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Retrofit</string>
+    <string name="app_name">Searcher</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="next">Next</string>
     <string name="username">Username</string>
